@@ -1,3 +1,7 @@
+/*-resizing is broken
+ * -Selection after the first part is not yet working 
+ */
+
 package battleship.source;
 
 import java.awt.BorderLayout;
@@ -128,6 +132,7 @@ public class BattleMap extends JPanel {
 					shipButton[i][j].setName("" + Cantor(i,j));
 					shipButton[i][j].addActionListener(new ButtonListener());
 					shipSelectGrid.add(shipButton[i][j]);
+
 				//}	
 			}
 		}
@@ -152,6 +157,8 @@ public class BattleMap extends JPanel {
 
 	}
 	
+	
+	//This is where the code 
 	private void shipSelectStage2() {
 		JPanel shipSelectGrid = new JPanel(new GridLayout(numForY + 1, numForX));
 
@@ -195,10 +202,10 @@ public class BattleMap extends JPanel {
 		JButton selected = new JButton("Continue");
 		shipSelectGrid.add(selected);
 		
-		gameState.playMenuStep2(shipSelectGrid);
+		gameState.playMenuStep3(shipSelectGrid);
 		tileShipStatus[][] trackSelection =
 				new tileShipStatus[numForX][numForY];
-		//enemyAI goes here
+		
 
 
 	}
@@ -227,7 +234,9 @@ public class BattleMap extends JPanel {
 					//gameState.playMenuStep2();
 					shipSelect();
 				}else {
+					JButton buttonToGetOut = (JButton) e.getSource();
 					System.out.println(nameOfCallingBtn);
+					buttonToGetOut.setEnabled(false);
 					//selection = Integer.parseInt(nameOfCallingBtn);
 					//shipSelectStage2();
 				}

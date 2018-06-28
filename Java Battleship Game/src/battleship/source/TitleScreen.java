@@ -156,6 +156,13 @@ public class TitleScreen extends JFrame implements ActionListener{
 		this.add(shipSelectGrid);
 		this.validate();
 	}
+	public void playMenuStep3(JPanel shipSelectGrid) {
+		this.getContentPane().removeAll();
+		this.repaint();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.add(shipSelectGrid);
+		this.validate();
+	}
 	public void actionPerformed(ActionEvent e) {
 		actions(e.getSource(), e.getActionCommand());
 	}
