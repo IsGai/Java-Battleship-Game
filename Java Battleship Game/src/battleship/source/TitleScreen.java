@@ -21,7 +21,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 	}
 	private static final Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	private JLabel battleshipLogo = new JLabel( new ImageIcon(getClass().getResource("Images\\BattleshipLogo.png")));
+	private JLabel battleshipLogo = new JLabel(new ImageIcon(getClass().getResource("Images\\BattleshipLogo.png")));
 	private JButton playButton = new JButton("Play Button");
 	private JButton optionsButton = new JButton("Options Button");
 	private JButton creditsButton = new JButton("Credits Button");
@@ -39,7 +39,6 @@ public class TitleScreen extends JFrame implements ActionListener{
 		//intialization
 		otherGUIComponents();
 		mainMenu();
-		
 		//size
 		/*
 		this.setMinimumSize(new Dimension(500,500));
@@ -61,7 +60,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 	}
 	private void actions(Object source, String command) {
 		if(source == playButton) {
-			JOptionPane.showMessageDialog(this, "Not functional yat");
+			playMenu();
 		}
 		if(source == optionsButton) {
 			optionsMenu();
@@ -84,8 +83,10 @@ public class TitleScreen extends JFrame implements ActionListener{
 		c.insets = new Insets(0,0,0,0);
 		c.weightx=0.9;
 		c.gridy=0;
+		Image t = ((ImageIcon)battleshipLogo.getIcon()).
+				getImage().getScaledInstance(this.getWidth(),this.getHeight()/5, Image.SCALE_DEFAULT);
+		battleshipLogo.setIcon(new ImageIcon(t));
 		this.add(battleshipLogo, c);
-		
 		c.weightx=1.0;
 		c.insets = new Insets((int)(this.getHeight()/500),(int)(this.getWidth()/20),(int)(this.getHeight()/20),(int)(this.getWidth()/20));
 		c.gridy=1;
@@ -94,10 +95,8 @@ public class TitleScreen extends JFrame implements ActionListener{
 		c.insets = new Insets(0,(int)(this.getWidth()/10),(int)(this.getHeight()/20),(int)(this.getWidth()/10));
 		c.gridy=2;
 		this.add(optionsButton, c);
-		
 		c.gridy=3;
 		this.add(creditsButton, c);
-		
 		c.gridy=4;
 		c.insets = new Insets(0,(int)(this.getWidth()/5),(int)(this.getHeight()/20),(int)(this.getWidth()/5));
 		this.add(quitButton, c);
@@ -108,7 +107,6 @@ public class TitleScreen extends JFrame implements ActionListener{
 		optionsButton.setFont(buttonFont);
 		creditsButton.setFont(buttonFont);
 		quitButton.setFont(buttonFont);
-		
 		this.validate();
 	}
 	public void changeBackground(Color newColor) {
@@ -137,6 +135,31 @@ public class TitleScreen extends JFrame implements ActionListener{
 		this.getContentPane().setLayout(new BorderLayout());
 		
 		this.add(new CreditsScreen(this));
+		
+		this.validate();
+	}
+	private void playMenu() {
+		this.getContentPane().removeAll();
+		this.repaint();
+		this.getContentPane().setLayout(new BorderLayout());
+		
+		this.add(new BattleMap(this));
+		
+		this.validate();
+	}
+	public void playMenuStep2(JPanel shipSelectGrid) {
+		this.getContentPane().removeAll();
+		this.repaint();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.add(shipSelectGrid);
+		this.validate();
+	}
+	public void addScreen(Component screen) {
+		this.getContentPane().removeAll();
+		this.repaint();
+		this.getContentPane().setLayout(new BorderLayout());
+		
+		this.add(screen);
 		
 		this.validate();
 	}
