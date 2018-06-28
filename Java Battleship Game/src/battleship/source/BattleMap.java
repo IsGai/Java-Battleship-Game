@@ -96,31 +96,64 @@ public class BattleMap extends JPanel {
 	}
 	
 	private void shipSelect() {
-		shipTokens = (int) (numForX * numForY * .15);
-		JPanel shipSelectGrid = new JPanel(new GridLayout(numForX, numForY + 1));
+
+		
+		shipTokens = 10;
+		JPanel shipSelectGrid = new JPanel(new GridLayout(numForY + 1, numForX));
 		player = new BattleTile[numForX][numForY];
+		/*for(int i = 0; i < numForX; i++) {
+			for(int j = 0; j < numForY; j++) {
+				
+				player[i][j].setTileShipStatus(tileShipStatus.EMPTY);
+				
+			}
+		}*/
+		
+		int selectedCount = 0;
 		enemy = new BattleTile[numForX][numForY];
 		shipButton = new JButton[numForX][numForY];
+		
+		JButton[] empty = new JButton[numForX - 3];
+		for(int j = 0; j < numForX - 3 + selectedCount; j++) {
+			empty[j] = new JButton("x");
+		}
+		
 		for(int i = 0; i < numForX; i++) {
-			for(int j = 0; j < numForY;) {
-				shipButton[i][j] = new JButton();
-				shipButton[i][j].setName("test");
-				shipButton[i][j].addActionListener(new ButtonListener());
+			for(int j = 0; j < numForY; j++) {
+				//if(player[i][j].getTileShipStatus() == tileShipStatus.EMPTY) {
+					shipButton[i][j] = new JButton();
+					shipButton[i][j].setName("test");
+					shipButton[i][j].addActionListener(new ButtonListener());
+					shipSelectGrid.add(shipButton[i][j]);
+				//}	
 			}
 		}
 		
+		shipSelectGrid.add(horizontal);
+		shipSelectGrid.add(vertical);
+		
+		JButton[] empty1 = new JButton[numForX - 3];
+		for(int j = 0; j < numForX - 3; j++) {
+			empty1[j] = new JButton("x");
+			shipSelectGrid.add(empty1[j]);
+		}
+		
+		JButton selected = new JButton("Continue");
+		shipSelectGrid.add(selected);
+		
+		gameState.playMenuStep2(shipSelectGrid);
 		tileShipStatus[][] trackSelection =
 				new tileShipStatus[numForX][numForY];
 		//enemyAI goes here
-		while(shipTokens > 0) {
+		/*while(shipTokens > 0) {
 			for(int i = 0; i < numForX; i++) {
-				for(int j = 0; j < numForY;) {
+				for(int j = 0; j < numForY; j++) {
 					if(trackSelection[i][j] == tileShipStatus.EMPTY) {
 						 shipSelectGrid.add(shipButton[i][j]);
 					}
 				}
 			}
-		}
+		}*/
 
 	}
 	
@@ -144,7 +177,7 @@ public class BattleMap extends JPanel {
 			} catch (Exception ex) {
 				
 			}
-			gameState.playMenuStep2();
+			//gameState.playMenuStep2();
 			shipSelect();
 
 		}

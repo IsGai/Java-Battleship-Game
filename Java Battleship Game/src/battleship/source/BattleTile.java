@@ -41,6 +41,14 @@ public class BattleTile{
 			battleTileShipStatus = tileShipStatus.EMPTY;
 		}
 	}
+	
+	public tileShipStatus getTileShipStatus() {
+		return this.battleTileShipStatus;
+	}
+	
+	public void setTileShipStatus(tileShipStatus set) {
+		this.battleTileShipStatus = set;
+	}
 }
 	
 	

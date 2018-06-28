@@ -21,7 +21,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 	}
 	private static final Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	private JLabel battleshipLogo = new JLabel( new ImageIcon(getClass().getResource("Images\\BattleshipLogo.png")));
+	///private JLabel battleshipLogo = new JLabel( new ImageIcon(getClass().getResource("Images\\BattleshipLogo.png")));
 	private JButton playButton = new JButton("Play Button");
 	private JButton optionsButton = new JButton("Options Button");
 	private JButton creditsButton = new JButton("Credits Button");
@@ -32,7 +32,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		//titlescreen main values
 		this.setUndecorated(true);//removes JFRAME border
 		this.setSize(500,500);
-		this.setIconImage(new ImageIcon(getClass().getResource("Images\\BattleshipIcon.png")).getImage());
+		//this.setIconImage(new ImageIcon(getClass().getResource("Images\\BattleshipIcon.png")).getImage());
 		this.setTitle("Battle Ship");
 		this.getContentPane().setBackground(Color.black);
 		
@@ -84,7 +84,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		c.insets = new Insets(0,0,0,0);
 		c.weightx=0.9;
 		c.gridy=0;
-		this.add(battleshipLogo, c);
+		//this.add(battleshipLogo, c);
 		
 		c.weightx=1.0;
 		c.insets = new Insets((int)(this.getHeight()/500),(int)(this.getWidth()/20),(int)(this.getHeight()/20),(int)(this.getWidth()/20));
@@ -149,10 +149,12 @@ public class TitleScreen extends JFrame implements ActionListener{
 		
 		this.validate();
 	}
-	public void playMenuStep2() {
+	public void playMenuStep2(JPanel shipSelectGrid) {
 		this.getContentPane().removeAll();
 		this.repaint();
 		this.getContentPane().setLayout(new BorderLayout());
+		this.add(shipSelectGrid);
+		this.validate();
 	}
 	public void actionPerformed(ActionEvent e) {
 		actions(e.getSource(), e.getActionCommand());
