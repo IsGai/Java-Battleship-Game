@@ -59,6 +59,9 @@ public class OptionsScreen extends JPanel implements ActionListener, ChangeListe
 		
 		optionsLabel.setFont(new Font("Arial", 1, 50));
 		optionsLabel.setBackground(null);
+		red.setBackground(null);
+		green.setBackground(null);
+		blue.setBackground(null);
 		
 		//adding components
 		//y0
