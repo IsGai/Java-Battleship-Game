@@ -20,23 +20,23 @@ public class BattleShip extends Ship{
 		setTailHit(false);
 		setDead(false);
 	}
-	public void setLocation(Point headLocation, Rotated rotation) {
-		setHeadLocation(headLocation);
+	public void setLocation(Point tailLocation, Rotated rotation) {
+		setTailLocation(tailLocation);
 		if(rotation==Rotated.UP) {
-			setBodyLocation(moveDown(headLocation));
-			setTailLocation(moveDown(getBodyLocation()));
+			setBodyLocation(moveUp(tailLocation));
+			setHeadLocation(moveUp(getBodyLocation()));
 		}
 		if(rotation==Rotated.DOWN) {
-			setBodyLocation(moveUp(headLocation));
-			setTailLocation(moveUp(getBodyLocation()));
+			setBodyLocation(moveDown(tailLocation));
+			setHeadLocation(moveDown(getBodyLocation()));
 		}
 		if(rotation==Rotated.LEFT) {
-			setBodyLocation(moveRight(headLocation));
-			setTailLocation(moveRight(getBodyLocation()));
+			setBodyLocation(moveLeft(tailLocation));
+			setHeadLocation(moveLeft(getBodyLocation()));
 		}
 		if(rotation==Rotated.RIGHT) {
-			setBodyLocation(moveLeft(headLocation));
-			setTailLocation(moveLeft(getBodyLocation()));
+			setBodyLocation(moveRight(tailLocation));
+			setHeadLocation(moveRight(getBodyLocation()));
 		}
 	}
 	public Point getTailLocation() {

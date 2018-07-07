@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,41 +51,82 @@ public class BattleScreen extends JPanel{
 	private JButton fireButton = new JButton("FIRE");
 	//
 	private TitleScreen ts;
-	private BattleMap playerMap;
-	private BattleMap enemyMap;
+	//private BattleMap playerMap;
+	//private BattleMap enemyMap;
+	//from BattleData
+	////Array to know what graphic to display on battlescreen
+	//private tileHitStatus[][] battleHitStatus ;
+	////Array to know what tiles contain ships
+	//private tileShipStatus[][] battleShipLocationStatus;
+	private JPanel playerMap;
+	private JPanel enemyMap;
+	private JButton[][] playerMapButtons; //all the player buttons(mapTiles)
+	private JButton[][] enemyMapButtons; //all the enemy buttons(mapTiles)
+	private boolean onEnemyScreen = false; //starts off on playerScreen
 	public BattleScreen(TitleScreen ts, int rows, int columns) {
 		this.ts = ts;
-		playerMap = new BattleMap(ts, rows, columns);
-		enemyMap = new BattleMap(ts, rows, columns);
-
 		setBackground(null);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		//all for PLAYER and ENEMY map
+		playerMapButtons = new JButton[columns][rows];
+		enemyMapButtons = new JButton[columns][rows];
+		createPlayerMap(columns, rows);
+		createEnemyMap(columns, rows);
+
 		
 		adjustToSettings();
 		setupMenuBar();
 		playerScreenInitialize();
 		enemyScreenIntialize();
+		declareComponentsTo();
 		
 		//initial GUI setup, later re-added with changeScreen()
 		add(menuBarPanel);
 		add(playerScreen);
 	}
-	private void setupMenuBar() {
-		//components
-		menuBarPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		menuBarPanel.add(menuBar);
-		menuBar.add(file);
-		file.add(saveAndReturn);
-		file.add(returnNoSave);
-		file.add(saveAndQuit);
-		file.add(quitNoSave);
-		//listeners
-		saveAndReturn.addActionListener(new MenuBarActionListener());
-		returnNoSave.addActionListener(new MenuBarActionListener());
-		saveAndQuit.addActionListener(new MenuBarActionListener());
-		quitNoSave.addActionListener(new MenuBarActionListener());
-		//
-		menuBarPanel.setBackground(null);
+	public void createPlayerMap(int columns, int rows) {
+		playerMapButtons = new JButton[columns][rows]; 
+		playerMap = new JPanel(new GridLayout(rows, columns));
+		playerMap.setBackground(null);
+		
+		int counter = 0;	
+		int xCounter = 0; //(x,y)
+		int yCounter = 0; //(x,y)
+		for(int y=0; y<rows; y++) {
+			for(int x=0; x<columns; x++) {
+				if(counter%columns==0) xCounter = 0;
+				yCounter = counter/columns;
+				playerMapButtons[x][y] = new JButton("(" + xCounter + ", " + yCounter + ")");
+				if(counter%columns==0) yCounter++;
+				xCounter++;
+				counter++;
+				playerMapButtons[x][y].addActionListener(new MapButtonListener());
+				//add my own button listener to the buttons
+				playerMap.add(playerMapButtons[x][y]);
+			}
+		}
+	}
+	public void createEnemyMap(int columns, int rows) {
+		enemyMapButtons = new JButton[columns][rows]; 
+		enemyMap = new JPanel(new GridLayout(rows, columns));
+		enemyMap.setBackground(null);
+		
+		int counter = 0;
+		int xCounter = 0;
+		int yCounter = 0;
+		for(int y=0; y<rows; y++) {
+			for(int x=0; x<columns; x++) {
+				if(counter%columns==0) xCounter = 0;
+				yCounter = counter/columns;
+				enemyMapButtons[x][y] = new JButton("(" + xCounter + ", " + yCounter + ")");
+				xCounter++;
+				counter++;
+				enemyMapButtons[x][y].addActionListener(new MapButtonListener());
+				//add my own button listener to the buttons
+				enemyMap.add(enemyMapButtons[x][y]);
+			}
+		}
 	}
 	//change font colors to opposite to background color
 	//adjust font sizes with current game height
@@ -110,6 +152,23 @@ public class BattleScreen extends JPanel{
 		xlabel.setForeground(TitleScreen.fontLabelColor);
 		ylabel.setFont(ts.fontResize(25));
 		ylabel.setForeground(TitleScreen.fontLabelColor);
+	}
+	private void setupMenuBar() {
+		//components
+		menuBarPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		menuBarPanel.add(menuBar);
+		menuBar.add(file);
+		file.add(saveAndReturn);
+		file.add(returnNoSave);
+		file.add(saveAndQuit);
+		file.add(quitNoSave);
+		//listeners
+		saveAndReturn.addActionListener(new MenuBarActionListener());
+		returnNoSave.addActionListener(new MenuBarActionListener());
+		saveAndQuit.addActionListener(new MenuBarActionListener());
+		quitNoSave.addActionListener(new MenuBarActionListener());
+		//
+		menuBarPanel.setBackground(null);
 	}
 	public void playerScreenInitialize() {
 		GridBagConstraints c = new GridBagConstraints();
@@ -172,6 +231,7 @@ public class BattleScreen extends JPanel{
 		changeScreen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeScreen(enemyScreen);
+				onEnemyScreen = true;
 			}
 		});
 	}
@@ -224,7 +284,7 @@ public class BattleScreen extends JPanel{
 		JButton changeScreen = new JButton();
 		enemyScreen.add(changeScreen, c);
 		
-		//resize image
+		//resize image for changeScreen button
 		int newImageSize = 0;
 		if(changeScreen.getPreferredSize().width > changeScreen.getPreferredSize().height)
 			newImageSize = changeScreen.getPreferredSize().width;
@@ -237,8 +297,18 @@ public class BattleScreen extends JPanel{
 		changeScreen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeScreen(playerScreen);
+				onEnemyScreen = false;
 			}
 		});
+		//
+	}
+	//listeners, etc.. declare components with other stuff
+	private void declareComponentsTo() {
+		fireButton.addActionListener(new MapButtonListener());
+		//set textfields and console are to non-editable
+		console.setEditable(false);
+		xcoord.setEditable(false);
+		ycoord.setEditable(false);
 	}
 	private void changeScreen(JPanel screen) {
 		removeAll();
@@ -253,6 +323,27 @@ public class BattleScreen extends JPanel{
 	//display information to the console on player screen
 	private void writeToConsole(String text) {
 		console.append(text + "\n");
+	}
+	private void save() {
+		//if have time
+	}
+	private class MapButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == fireButton) {
+				//only if coordinates have been selected
+				if(!xcoord.getText().equals("") && !ycoord.getText().equals("")) {
+					enemyMapButtons[Integer.parseInt(xcoord.getText())][Integer.parseInt(ycoord.getText())].setEnabled(false);
+					//end player turn from BattleMechanics
+				}
+			}
+			if(onEnemyScreen && e.getSource() != fireButton) {
+				String[] coords = e.getActionCommand().split(", ");
+				coords[0] = coords[0].substring(1,coords[0].length());
+				coords[1] = coords[1].substring(0, coords[1].length()-1);
+				xcoord.setText(coords[0]);
+				ycoord.setText(coords[1]);
+			}
+		}
 	}
 	private class MenuBarActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {

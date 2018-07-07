@@ -27,17 +27,17 @@ public class Ship extends JLabel{
 		setBodyHit(false);
 		setDead(false);
 	}
-	public void setLocation(Point headLocation, Rotated rotation) {
-		setHeadLocation(headLocation);
+	public void setLocation(Point bodyLocation, Rotated rotation) {
+		setBodyLocation(headLocation);
 		setRotation(rotation);
 		if(rotation==Rotated.UP)
-			setBodyLocation(moveDown(headLocation));
+			setHeadLocation(moveUp(bodyLocation));
 		if(rotation==Rotated.DOWN)
-			setBodyLocation(moveUp(headLocation));
+			setHeadLocation(moveDown(bodyLocation));
 		if(rotation==Rotated.LEFT)
-			setBodyLocation(moveRight(headLocation));
+			setHeadLocation(moveLeft(bodyLocation));
 		if(rotation==Rotated.RIGHT)
-			setBodyLocation(moveLeft(headLocation));
+			setHeadLocation(moveRight(bodyLocation));
 	}
 	public Point moveUp(Point point) {
 		Point newPoint = new Point(point);
