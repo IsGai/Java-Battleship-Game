@@ -1,0 +1,93 @@
+import java.awt.Point;
+import java.util.Random;
+
+
+public class BattleShipAi {
+	private Point shot;
+	private Point lastPoint;
+  private int xSize;
+  private int ySize;
+  private Point[] potentialPoint;
+
+
+  public BattleShipAi(BattleData bd){
+    this.bd = bd;
+    this.xSize = bd.getX();
+    this.ySize= bd.getY();
+    
+  }
+	
+	public Point generateAiShot() {
+      	int xPoint = new Random().nextInt(xSize+1);
+		    int yPoint = new Random().nextInt(ySize+1);
+		    shot = new Point(xPoint, yPoint);
+		
+          if(bd.getTileHitStatus(xPoint, yPoint) == tileHitStatus.EMPTY){
+            lastPoint = shot;
+            return shot;
+          }
+    }
+	}		
+	
+
+	public Point guessNorth(point hitPoint){
+    Point pointNorth =  hitPoint.translate(0, 1);
+    if(pointNorth == tileHitStatus.EMPTY){
+      return pointNorth;
+    }
+  }
+
+  public Point guessSouth(point hitPoint){
+    Point pointSouth =  hitPoint.translate(0, -1);
+    if(pointSouth == tileHitStatus.EMPTY){
+      return pointSouth;
+    }
+  }
+
+  public Point guessEast(point hitPoint){
+    Point pointEast =  hitPoint.translate(1, 0);
+    if(pointEast == tileHitStatus.EMPTY){
+      return pointEast;
+    }
+  }
+
+  public Point guessWest(point hitPoint){
+    Point pointWest =  hitPoint.translate(-1, 0);
+    if(pointWest == tileHitStatus.EMPTY){
+      return pointWest;
+    }
+  }
+
+
+	
+}
+  
+if(lastPoint == HIT){
+    guessNorth();
+    if(guessNorth == HIT){
+      return guessNorth;
+    }
+      else if (guessNorth() == MISS ){
+        guessSouth();
+
+          if (guessSouth() == HIT){
+            guessSouth();
+          }
+          
+            else if(guessSouth == MISS){
+                guessEast(){
+                    if(guessEast == HIT){
+                      guessEast();
+                        else if (guessEast == MISS){
+                          guessWest();
+                        } 
+                            if(guessWest == Hit){
+                              guessWest();
+                            }
+
+            }
+          }
+        }
+      }
+    }
+}
