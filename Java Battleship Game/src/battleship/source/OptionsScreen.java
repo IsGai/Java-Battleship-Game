@@ -40,6 +40,7 @@ public class OptionsScreen extends JPanel implements ActionListener, ChangeListe
 								Math.abs(green.getValue()-255),
 								Math.abs(blue.getValue()-255));
 			optionsLabel.setForeground(optionsColor);
+			TitleScreen.fontLabelColor = optionsColor;
 		}
 		if(source == applyButton) {
 			ts.changeSize(StringToDimension(resolution.getSelectedItem().toString()));
@@ -57,7 +58,7 @@ public class OptionsScreen extends JPanel implements ActionListener, ChangeListe
 	private void setGUI() {
 		resolution = new JComboBox<String>(sizes);
 		
-		optionsLabel.setFont(new Font("Arial", 1, 50));
+		optionsLabel.setFont(ts.fontResize(10));
 		optionsLabel.setBackground(null);
 		red.setBackground(null);
 		green.setBackground(null);
@@ -96,7 +97,7 @@ public class OptionsScreen extends JPanel implements ActionListener, ChangeListe
 		green.setValue(tsBackground.getGreen());
 		c.gridx = 1;
 		c.gridy = 2;
-		this.add(new JComboBox<String>(), c); //extra
+		//this.add(new JComboBox<String>(), c); //extra
 		//y3
 		c.gridx = 0;
 		c.gridy = 3;
@@ -104,19 +105,11 @@ public class OptionsScreen extends JPanel implements ActionListener, ChangeListe
 		blue.setValue(tsBackground.getBlue());
 		c.gridx = 1;
 		c.gridy = 3;
-		this.add(new JComboBox<String>(), c); //extra
-		//y4-y8 extras
-		for(int x=4;x<9;x++) {
-			for(int y=0;y<2;y++) {
-				c.gridx = y;
-				c.gridy = x;
-				this.add(new JComboBox<String>(), c);
-			}
-		}
+		//this.add(new JComboBox<String>(), c); //extra
 		
 		//make "cancel" and "apply" buttons bigger and fatter
 		c.gridx = 0;
-		c.gridy = 9;
+		c.gridy = 4;
 		c.ipady = 20;//taller
 		c.ipadx = 100;//wider
 		this.add(cancelButton, c);
