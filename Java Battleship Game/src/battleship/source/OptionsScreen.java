@@ -21,8 +21,6 @@ public class OptionsScreen extends JPanel implements ActionListener, ChangeListe
 	private JButton cancelButton = new JButton("Cancel");
 	private JButton applyButton = new JButton("Apply");
 	
-	private GridBagConstraints c = new GridBagConstraints();
-	
 	public OptionsScreen(TitleScreen ts) {
 		this.ts = ts;
 		this.tsBackground = ts.getContentPane().getBackground();
@@ -63,7 +61,9 @@ public class OptionsScreen extends JPanel implements ActionListener, ChangeListe
 		red.setBackground(null);
 		green.setBackground(null);
 		blue.setBackground(null);
+
 		
+		GridBagConstraints c = new GridBagConstraints();
 		//adding components
 		//y0
 		c.fill = GridBagConstraints.CENTER;

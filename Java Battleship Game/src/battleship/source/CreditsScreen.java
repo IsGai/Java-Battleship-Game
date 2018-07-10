@@ -62,56 +62,22 @@ public class CreditsScreen extends JPanel{
 		
 		add(creditsPanel);
 		glassPaneSetup();
+		Image icon = new ImageIcon("src\\battleship\\source\\Images\\CreditsScreenBackground.gif").getImage();
+		JLabel matrixIcon = new JLabel();
+		matrixIcon.setIcon(new ImageIcon(icon));
+		add(matrixIcon);
 	}
 	private void glassPaneSetup() {
 		glassPane.setVisible(true);
 		glassPane.setBackground(null);
 		glassPane.setLayout(new BoxLayout(glassPane, BoxLayout.Y_AXIS));
-		JPanel anim = new CreditsScreenAnimation();
 		glassPane.add(backButton);//re-add backbutton to top panel(glassPane)
-		glassPane.add(anim);
-		/*
-		JButton test = new JButton("hi");
-		glassPane.add(test);
-		test.setBounds(0,0,100,100);*/
+		glassPane.add(creditsPanel);//re-add creditsScreen over the matrixs Gif
+		creditsPanel.setOpaque(false);
 	}
 	private void removeGlassPane() {
 		glassPane.setVisible(false);
 		glassPane.removeAll();
 		glassPane.validate();
-	}
-	private class CreditsScreenAnimation extends JPanel implements MouseMotionListener{
-		public CreditsScreenAnimation() {
-			setOpaque(false); //removes background
-			setLayout(null);
-			setBackground(null);
-			setForeground(null);
-			addMouseMotionListener(this);
-		}
-		int x=25, y=25;
-		Rectangle r = new Rectangle();
-		public void paint(Graphics g) {
-			g.setColor(Color.blue);
-			g.fillRect(x,y,50,50);
-			g.setColor(Color.red);
-			g.fillRect(x+10,y+100,35,35);
-			borderDetection();
-			repaint();
-		}
-		boolean pos = true, neg = false;
-		private void borderDetection() {
-			if(x<=0)pos = true;
-			if(x>=ts.getWidth())pos = false;
-			if(pos)x+=ts.getWidth()/500;
-			if(!pos) x-=ts.getWidth()/500;
-			if(y<=0)neg = true;
-			if(y>=ts.getHeight())neg = false;
-			if(neg)y+=ts.getHeight()/500;
-			if(!neg) y-=ts.getHeight()/500;
-		}
-		public void mouseDragged(MouseEvent e) {
-		}
-		public void mouseMoved(MouseEvent e) {
-		}
 	}
 }
