@@ -124,7 +124,7 @@ public class ShipSelect {
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser jfl = new JFileChooser();
-				jfl.setCurrentDirectory(new File("src\\battleship\\source\\Saves\\"));
+				jfl.setCurrentDirectory(new File("src/battleship/source/Saves/"));
 				jfl.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int option = jfl.showOpenDialog(battleSetupScreen);
 				if(option == JFileChooser.APPROVE_OPTION) {
