@@ -71,7 +71,7 @@ public class BattleMechanics {
 	public void save(String fileName, Dimension screenDimension, String consoleText, int turnCount) {
 		try {
 			ObjectOutputStream outputStream = new ObjectOutputStream(
-					new FileOutputStream("src\\battleship\\source\\Saves\\" + fileName + ".dat"));
+					new FileOutputStream("src/battleship/source/Saves/" + fileName + ".dat"));
 			outputStream.writeObject(playerBD);
 			outputStream.writeObject(enemyBD);
 			outputStream.writeObject(screenDimension);
