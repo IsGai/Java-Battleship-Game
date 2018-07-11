@@ -62,7 +62,7 @@ public class CreditsScreen extends JPanel{
 		
 		add(creditsPanel);
 		glassPaneSetup();
-		Image icon = new ImageIcon("src\\battleship\\source\\Images\\CreditsScreenBackground.gif").getImage();
+		Image icon = new ImageIcon("src/battleship/source/Images/CreditsScreenBackground.gif").getImage();
 		JLabel matrixIcon = new JLabel();
 		matrixIcon.setIcon(new ImageIcon(icon));
 		add(matrixIcon);
