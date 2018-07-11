@@ -330,7 +330,7 @@ public class BattleScreen extends JPanel {
 			newImageSize = changeScreen.getPreferredSize().width;
 		else
 			newImageSize = changeScreen.getPreferredSize().height;
-		Image t = new ImageIcon("src\battleship\source\Images\Enemy.png").getImage().getScaledInstance(newImageSize,
+		Image t = new ImageIcon("src/battleship/source/Images/Enemy.png").getImage().getScaledInstance(newImageSize,
 				newImageSize, Image.SCALE_DEFAULT);
 
 		changeScreen.setIcon(new ImageIcon(t));
@@ -483,7 +483,7 @@ public class BattleScreen extends JPanel {
 			newImageSize = changeScreen.getPreferredSize().width;
 		else
 			newImageSize = changeScreen.getPreferredSize().height;
-		Image t = new ImageIcon("src\battleship\source\Images\Player.png").getImage()
+		Image t = new ImageIcon("src/battleship/source/Images/Player.png").getImage()
 				.getScaledInstance(newImageSize, newImageSize, Image.SCALE_DEFAULT);
 
 		changeScreen.setIcon(new ImageIcon(t));
