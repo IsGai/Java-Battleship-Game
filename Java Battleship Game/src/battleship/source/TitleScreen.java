@@ -10,7 +10,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 	}
 	public static final Dimension SCREEN_DIMESNION = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	private JLabel battleshipLogo = new JLabel(new ImageIcon("src\\battleship\\source\\Images\\BattleshipLogo.png"));
+	private JLabel battleshipLogo = new JLabel(new ImageIcon("src/battleship/source/Images/BattleshipLogo.png"));
 	private JButton playButton = new JButton("Play Button");
 	private JButton optionsButton = new JButton("Options Button");
 	private JButton creditsButton = new JButton("Credits Button");
@@ -21,7 +21,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		//titlescreen main values
 		this.setUndecorated(true);//removes JFRAME border
 		this.setSize(500,500);
-		this.setIconImage(new ImageIcon("src\\battleship\\source\\Images\\BattleshipIcon.png").getImage());
+		this.setIconImage(new ImageIcon("src/battleship/source/Images/BattleshipIcon.png").getImage());
 		this.setTitle("Battle Ship");
 		this.getContentPane().setBackground(Color.black);
 		
